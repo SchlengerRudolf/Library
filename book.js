@@ -1,8 +1,11 @@
+const myLibrary = [];
+
 function Book(title, author, pages, read) {
     this.title = title;
     this.author = author;
     this.pages = pages;
     this.read = read;
+    this.id = crypto.randomUUID();
     this.info = function() {
         let status = "not read yet";
         if(this.read){
@@ -13,6 +16,12 @@ function Book(title, author, pages, read) {
     }
 }
 
-const dora = new Book("Dora the explorer", "Diego Santiago", 150, true);
+function addBookToLibrary(title, author, pages) {
+    let newBook = new Book(title, author, pages, false);
 
-console.log(dora.info());
+    myLibrary.push(newBook);
+}
+
+addBookToLibrary("Dora the explorer", "Diego Santiago", 150)
+
+console.log(myLibrary[0]);
