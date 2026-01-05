@@ -1,5 +1,11 @@
 const myLibrary = [];
 
+const container = document.querySelector(".books-container");
+const dialog = document.querySelector(".add-book-dialog");
+const newBookButton = document.querySelector(".new-book-btn");
+const addBookButton = document.querySelector(".add");
+const closeFormButton = document.querySelector(".close");
+
 function Book(title, author, pages, read) {
     this.title = title;
     this.author = author;
@@ -24,8 +30,6 @@ function addBookToLibrary(title, author, pages) {
 }
 
 function displayLibrary() { 
-    const container = document.querySelector(".books-container");
-
     for (const book of myLibrary) {
         const bookCard = createBookCard(book.title, book.author, book.pages)
 
@@ -53,11 +57,6 @@ function addText(container, text, type) {
     container.appendChild(textNode);
 }
 
-const dialog = document.querySelector(".add-book-dialog");
-const newBookButton = document.querySelector(".new-book-btn");
-const addBookButton = document.querySelector(".add");
-const closeFormButton = document.querySelector(".close");
-
 newBookButton.addEventListener("click", () => {
     dialog.showModal();
 });
@@ -67,7 +66,15 @@ addBookButton.addEventListener("click", () => {
                      document.getElementById("author").value,
                      document.getElementById("pages").value);
     event.preventDefault();
+    displayBook(myLibrary[myLibrary.length - 1]);
+    dialog.close();
 });
+
+function displayBook(book) {
+    const bookCard = createBookCard(book.title, book.author, book.pages);
+
+    container.appendChild(bookCard);
+}
 
 closeFormButton.addEventListener("click", () => {
     dialog.close();
