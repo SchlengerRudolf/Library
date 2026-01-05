@@ -59,17 +59,27 @@ function addText(container, text, type) {
 
 newBookButton.addEventListener("click", () => {
     dialog.showModal();
-});
+})
 
 addBookButton.addEventListener("click", () => {
-    addBookToLibrary(document.getElementById("title").value,
-                     document.getElementById("author").value,
-                     document.getElementById("pages").value);
-    event.preventDefault();
-    displayBook(myLibrary[myLibrary.length - 1]);
-    document.getElementById("add-book-form").reset();
-    dialog.close();
-});
+    if (isFormValid()) {
+        addBookToLibrary(document.getElementById("title").value,
+                        document.getElementById("author").value,
+                        document.getElementById("pages").value);
+        event.preventDefault();
+        displayBook(myLibrary[myLibrary.length - 1]);
+        document.getElementById("add-book-form").reset();
+        dialog.close();
+    }
+})
+
+function isFormValid() {
+    if(document.getElementById("title").value == "") return false;
+    else if (document.getElementById("author").value == "") return false;
+    else if (document.getElementById("pages").value == "") return false;
+    else return true;
+}
+
 
 function displayBook(book) {
     const bookCard = createBookCard(book.title, book.author, book.pages);
@@ -80,7 +90,7 @@ function displayBook(book) {
 closeFormButton.addEventListener("click", () => {
     document.getElementById("add-book-form").reset();
     dialog.close();
-});
+})
 
 addBookToLibrary("Dora the explorer", "Diego Santiago", 150);
 addBookToLibrary("Conan the barbar", "Conan o'brien", 420);
