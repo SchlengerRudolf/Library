@@ -67,6 +67,7 @@ addBookButton.addEventListener("click", () => {
                      document.getElementById("pages").value);
     event.preventDefault();
     displayBook(myLibrary[myLibrary.length - 1]);
+    document.getElementById("add-book-form").reset();
     dialog.close();
 });
 
@@ -77,6 +78,7 @@ function displayBook(book) {
 }
 
 closeFormButton.addEventListener("click", () => {
+    document.getElementById("add-book-form").reset();
     dialog.close();
 });
 
