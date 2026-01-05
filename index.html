@@ -11,6 +11,22 @@
    <div class="main-container">
         <button class="new-book-btn">New Book</button>
         <div class="books-container"> </div>
+        <dialog class="add-book-dialog">
+            <form id="add-book-form">
+                <label for="title">Title:</label>
+                <input type="text" id="title" name="Title name" required>
+
+                <label for="author">Author:</label>
+                <input type="text" id="author" name="Author name" required>
+                
+                <label for="pages">Pages:</label>
+                <input type="number" id="pages" name="Pages" required>
+            </form>
+            <div>
+                <button form="add-book-form" class="add">Add</button>
+                <button class="close" autofocus>Close</button>
+            </div>
+        </dialog>
    </div> 
 </body>
 </html>

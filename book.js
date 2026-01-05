@@ -20,6 +20,7 @@ function addBookToLibrary(title, author, pages) {
     let newBook = new Book(title, author, pages, false);
 
     myLibrary.push(newBook);
+    console.log(newBook);
 }
 
 function displayLibrary() { 
@@ -44,12 +45,33 @@ function createBookCard(title, author, pages) {
     return container;
 }
 
+
 function addText(container, text, type) {
     const textNode = document.createElement(type);
     
     textNode.appendChild(document.createTextNode(text));
     container.appendChild(textNode);
 }
+
+const dialog = document.querySelector(".add-book-dialog");
+const newBookButton = document.querySelector(".new-book-btn");
+const addBookButton = document.querySelector(".add");
+const closeFormButton = document.querySelector(".close");
+
+newBookButton.addEventListener("click", () => {
+    dialog.showModal();
+});
+
+addBookButton.addEventListener("click", () => {
+    addBookToLibrary(document.getElementById("title").value,
+                     document.getElementById("author").value,
+                     document.getElementById("pages").value);
+    event.preventDefault();
+});
+
+closeFormButton.addEventListener("click", () => {
+    dialog.close();
+});
 
 addBookToLibrary("Dora the explorer", "Diego Santiago", 150);
 addBookToLibrary("Conan the barbar", "Conan o'brien", 420);
