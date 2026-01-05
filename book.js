@@ -35,12 +35,20 @@ function displayLibrary() {
 function createBookCard(title, author, pages) {
     const container = document.createElement("div");
     container.classList.add("book");
-    container.appendChild(document.createElement("h3").appendChild(document.createTextNode(title)));
-    container.appendChild(document.createElement("p").appendChild(document.createTextNode(author)));
-    container.appendChild(document.createElement("p").appendChild(document.createTextNode(pages)));
-    container.appendChild(document.createElement("p").appendChild(document.createTextNode("not read")));
+
+    addText(container, title, "h3")
+    addText(container, author, "p")
+    addText(container, pages, "p")
+    addText(container, "not read", "p")
 
     return container;
+}
+
+function addText(container, text, type) {
+    const textNode = document.createElement(type);
+    
+    textNode.appendChild(document.createTextNode(text));
+    container.appendChild(textNode);
 }
 
 addBookToLibrary("Dora the explorer", "Diego Santiago", 150);
