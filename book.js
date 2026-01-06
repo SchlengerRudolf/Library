@@ -24,6 +24,8 @@ function addBookToLibrary(title, author, pages) {
     myLibrary.push(newBook);
 }
 
+// --- Display functions ---
+
 function displayLibrary() { 
     for (const book of myLibrary) {
         const bookCard = createBookCard(book);
@@ -53,22 +55,7 @@ function createBookCard(book) {
     return container;   
 }
 
-function addText(container, text, type) {
-    const textNode = document.createElement(type);
-    
-    textNode.appendChild(document.createTextNode(text));
-    container.appendChild(textNode);
-
-    return textNode;
-}
-
-function createButton(text, className) {
-   const btn = document.createElement("button");
-
-   btn.classList.add(className);
-   btn.appendChild(document.createTextNode(text));
-   return btn;
-}
+// --- Event Listeners ---
 
 function addRemoveBookEvent(container, button) {
     button.addEventListener("click", () => {
@@ -112,12 +99,12 @@ addBookButton.addEventListener("click", () => {
     }
 })
 
-function isFormValid() {
-    if(document.getElementById("title").value == "") return false;
-    else if (document.getElementById("author").value == "") return false;
-    else if (document.getElementById("pages").value == "") return false;
-    else return true;
-}
+closeFormButton.addEventListener("click", () => {
+    document.getElementById("add-book-form").reset();
+    dialog.close();
+})
+
+// --- Helper functions ---
 
 function displayBook(book) {
     const bookCard = createBookCard(book);
@@ -125,10 +112,31 @@ function displayBook(book) {
     container.appendChild(bookCard);
 }
 
-closeFormButton.addEventListener("click", () => {
-    document.getElementById("add-book-form").reset();
-    dialog.close();
-})
+function createButton(text, className) {
+   const btn = document.createElement("button");
+
+   btn.classList.add(className);
+   btn.appendChild(document.createTextNode(text));
+   return btn;
+}
+
+function addText(container, text, type) {
+    const textNode = document.createElement(type);
+    
+    textNode.appendChild(document.createTextNode(text));
+    container.appendChild(textNode);
+
+    return textNode;
+}
+
+function isFormValid() {
+    if(document.getElementById("title").value == "") return false;
+    else if (document.getElementById("author").value == "") return false;
+    else if (document.getElementById("pages").value == "") return false;
+    else return true;
+}
+
+// --- Library Display ---
 
 addBookToLibrary("Dora the explorer", "Diego Santiago", 150);
 addBookToLibrary("Conan the barbar", "Conan o'brien", 420);
