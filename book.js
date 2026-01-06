@@ -42,15 +42,16 @@ function createBookCard(book) {
     const removeButton = createButton("Remove", "remove-button");
     addRemoveBookEvent(container, removeButton);
     const readButton = createButton("Toggle Read Status", "toggle-read-button");
-    addToggleReadEvent(book, readButton);
+    addToggleReadEvent(container, book, readButton);
     
     addText(container, book.title, "h3");
-    addText(container, book.author, "p");
-    addText(container, book.pages, "p");
-    const readText = addText(container, "not read", "p");
-    readText.setAttribute("id", "read-text");
-    container.appendChild(removeButton);
+    addText(container, ("Author: " + book.author), "p");
+    addText(container, ("Pages: " + book.pages), "p");
+    const readText = addText(container, "Read status: not read", "p");
+    readText.classList.add("read-text");
     container.appendChild(readButton);
+    container.appendChild(removeButton);
+    
 
     return container;   
 }
@@ -69,15 +70,15 @@ function addRemoveBookEvent(container, button) {
     });
 }
 
-function addToggleReadEvent(book, button) {
+function addToggleReadEvent(container, book, button) {
     button.addEventListener("click", () => {
-        const readText = document.getElementById("read-text");
+        const readText = container.querySelector(".read-text");
 
         if (book.read) {
-            readText.textContent = "not read"
+            readText.textContent = "Read status: not read"
         }
         else {
-            readText.textContent = "read"
+            readText.textContent = "Read status: read"
         }
         book.toggleReadStatus();
     })
