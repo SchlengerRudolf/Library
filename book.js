@@ -12,21 +12,16 @@ function Book(title, author, pages, read) {
     this.pages = pages;
     this.read = read;
     this.id = crypto.randomUUID();
-    this.info = function() {
-        let status = "not read yet";
-        if(this.read){
-            status = "already read";
-        }
+}
 
-        return (this.title + " by " + this.author + ", " + this.pages + " pages, " + status);
-    }
+Book.prototype.toggleReadStatus = function() {
+    this.read = !this.read;
 }
 
 function addBookToLibrary(title, author, pages) {
     let newBook = new Book(title, author, pages, false);
 
     myLibrary.push(newBook);
-    console.log(myLibrary);
 }
 
 function displayLibrary() { 
@@ -44,12 +39,16 @@ function createBookCard(book) {
 
     const removeButton = createButton("Remove", "remove-button");
     addRemoveBookEvent(container, removeButton);
-
+    const readButton = createButton("Toggle Read Status", "toggle-read-button");
+    addToggleReadEvent(book, readButton);
+    
     addText(container, book.title, "h3");
     addText(container, book.author, "p");
     addText(container, book.pages, "p");
-    addText(container, "not read", "p");
+    const readText = addText(container, "not read", "p");
+    readText.setAttribute("id", "read-text");
     container.appendChild(removeButton);
+    container.appendChild(readButton);
 
     return container;   
 }
@@ -59,6 +58,8 @@ function addText(container, text, type) {
     
     textNode.appendChild(document.createTextNode(text));
     container.appendChild(textNode);
+
+    return textNode;
 }
 
 function createButton(text, className) {
@@ -79,6 +80,20 @@ function addRemoveBookEvent(container, button) {
         }
         container.remove();
     });
+}
+
+function addToggleReadEvent(book, button) {
+    button.addEventListener("click", () => {
+        const readText = document.getElementById("read-text");
+
+        if (book.read) {
+            readText.textContent = "not read"
+        }
+        else {
+            readText.textContent = "read"
+        }
+        book.toggleReadStatus();
+    })
 }
 
 newBookButton.addEventListener("click", () => {
