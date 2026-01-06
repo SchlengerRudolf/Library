@@ -3,8 +3,8 @@ const myLibrary = [];
 const container = document.querySelector(".books-container");
 const dialog = document.querySelector(".add-book-dialog");
 const newBookButton = document.querySelector(".new-book-btn");
-const addBookButton = document.querySelector(".add");
-const closeFormButton = document.querySelector(".close");
+const addBookButton = document.querySelector(".add-button");
+const closeFormButton = document.querySelector(".close-button");
 
 function Book(title, author, pages, read) {
     this.title = title;
@@ -26,35 +26,59 @@ function addBookToLibrary(title, author, pages) {
     let newBook = new Book(title, author, pages, false);
 
     myLibrary.push(newBook);
-    console.log(newBook);
+    console.log(myLibrary);
 }
 
 function displayLibrary() { 
     for (const book of myLibrary) {
-        const bookCard = createBookCard(book.title, book.author, book.pages)
+        const bookCard = createBookCard(book);
 
         container.appendChild(bookCard);
     }
 }
 
-function createBookCard(title, author, pages) {
+function createBookCard(book) {
     const container = document.createElement("div");
     container.classList.add("book");
+    container.setAttribute("data-id", book.id);
 
-    addText(container, title, "h3")
-    addText(container, author, "p")
-    addText(container, pages, "p")
-    addText(container, "not read", "p")
+    const removeButton = createButton("Remove", "remove-button");
+    addRemoveBookEvent(container, removeButton);
 
-    return container;
+    addText(container, book.title, "h3");
+    addText(container, book.author, "p");
+    addText(container, book.pages, "p");
+    addText(container, "not read", "p");
+    container.appendChild(removeButton);
+
+    return container;   
 }
-
 
 function addText(container, text, type) {
     const textNode = document.createElement(type);
     
     textNode.appendChild(document.createTextNode(text));
     container.appendChild(textNode);
+}
+
+function createButton(text, className) {
+   const btn = document.createElement("button");
+
+   btn.classList.add(className);
+   btn.appendChild(document.createTextNode(text));
+   return btn;
+}
+
+function addRemoveBookEvent(container, button) {
+    button.addEventListener("click", () => {
+        for (let i = 0; i < myLibrary.length; i++) {
+            if (myLibrary[i].id === container.dataset.id) {
+                myLibrary.splice(i, 1);
+                break;
+            }
+        }
+        container.remove();
+    });
 }
 
 newBookButton.addEventListener("click", () => {
@@ -80,9 +104,8 @@ function isFormValid() {
     else return true;
 }
 
-
 function displayBook(book) {
-    const bookCard = createBookCard(book.title, book.author, book.pages);
+    const bookCard = createBookCard(book);
 
     container.appendChild(bookCard);
 }
