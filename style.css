@@ -1,0 +1,121 @@
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --main-bg-color: #f1f1e8;
+    --card-color: #e6d484c4;
+    --card-border-color: #8f883cdc;
+    --shadow-color: #00000030;
+    --button-shadow: 0 2px 3px var(--shadow-color);
+    --new-book-btn-color: #b8ad4d;
+    --spacing: 2rem;
+}
+
+body {
+    margin: 0;
+    background-color: var(--main-bg-color);
+    padding: 1rem 2rem;
+}
+
+h3 {
+    margin: 0;
+}
+
+button:hover {
+    border: 1px solid #d1d180;
+}
+
+.main-container {
+    display: grid;
+}
+
+.books-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 30rem));
+    justify-content: center;
+
+    gap: var(--spacing);
+    padding: var(--spacing) 0;
+
+    border-top: 1px solid var(--shadow-color);
+    border-bottom: 1px solid var(--shadow-color);
+}
+
+.book {
+    max-width: 100%;
+    font-size: 1.2rem;
+
+    padding: 1rem;
+
+    border-radius: 0.5rem;
+    border-left: 0.5rem solid var(--card-border-color);
+
+    background-color: var(--card-color);
+    box-shadow: 0 4px 10px var(--shadow-color);
+}
+
+.book h3 {
+    justify-self: center;
+    margin-bottom: 4rem;
+}
+
+.button-container {
+    margin-top: 4rem;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.remove-button, .toggle-read-button {
+    background-color: var(--main-bg-color);
+    box-shadow: var(--button-shadow);
+    border: 1px solid var(--main-bg-color);
+    border-radius: 0.8rem;
+    padding: 0.5rem 1rem;
+}
+
+.new-book-btn {
+    justify-self: center;
+    border: 1px solid var(--new-book-btn-color); 
+    border-radius: 1rem;
+    background-color: var(--new-book-btn-color);
+    padding: 1rem 3rem;
+    margin-bottom: var(--spacing);
+}
+
+.new-book-btn:hover {
+    border-color: #81814e;
+}
+
+.add-book-dialog {
+    border-style: none;
+    border-radius: 0.5rem;
+    background-color: var(--main-bg-color);
+    padding: var(--spacing);
+    box-shadow: 0 0 30px #000000;
+}
+
+#add-book-form {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    row-gap: 1rem;
+}
+
+.form-button-container {
+    display: flex;
+    justify-content: end;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.form-button-container button {
+    padding: 0.2rem 1.5rem;
+    background-color: #ffffff;
+    border: 1px solid #ffffff;
+    box-shadow: var(--button-shadow);
+}
+
+.form-button-container button:hover {
+    border-color: #00000050;
+}

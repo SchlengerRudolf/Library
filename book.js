@@ -39,20 +39,22 @@ function createBookCard(book) {
     container.classList.add("book");
     container.setAttribute("data-id", book.id);
 
+    const buttonContainer = document.createElement("div");
+    buttonContainer.classList.add("button-container");
     const removeButton = createButton("Remove", "remove-button");
-    addRemoveBookEvent(container, removeButton);
     const readButton = createButton("Toggle Read Status", "toggle-read-button");
+    addRemoveBookEvent(container, removeButton);
     addToggleReadEvent(container, book, readButton);
+    buttonContainer.appendChild(readButton);
+    buttonContainer.appendChild(removeButton);
     
     addText(container, book.title, "h3");
     addText(container, ("Author: " + book.author), "p");
     addText(container, ("Pages: " + book.pages), "p");
     const readText = addText(container, "Read status: not read", "p");
     readText.classList.add("read-text");
-    container.appendChild(readButton);
-    container.appendChild(removeButton);
+    container.appendChild(buttonContainer);
     
-
     return container;   
 }
 
