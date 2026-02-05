@@ -2,6 +2,11 @@ const myLibrary = [];
 
 const container = document.querySelector(".books-container");
 const dialog = document.querySelector(".add-book-dialog");
+const form = document.getElementById("add-book-form");
+const titleInput = document.getElementById("title");
+const authorInput = document.getElementById("author");
+const pagesInput = document.getElementById("pages");
+
 const newBookButton = document.querySelector(".new-book-btn");
 const addBookButton = document.querySelector(".add-button");
 const closeFormButton = document.querySelector(".close-button");
@@ -91,10 +96,11 @@ newBookButton.addEventListener("click", () => {
 })
 
 addBookButton.addEventListener("click", () => {
-    if (isFormValid()) {
-        addBookToLibrary(document.getElementById("title").value,
-                        document.getElementById("author").value,
-                        document.getElementById("pages").value);
+    setValidity();
+    if (form.checkValidity()) {
+        addBookToLibrary(titleInput.value,
+                        authorInput.value,
+                        pagesInput.value);
         event.preventDefault();
         displayBook(myLibrary[myLibrary.length - 1]);
         document.getElementById("add-book-form").reset();
@@ -132,11 +138,25 @@ function addText(container, text, type) {
     return textNode;
 }
 
-function isFormValid() {
-    if(document.getElementById("title").value == "") return false;
-    else if (document.getElementById("author").value == "") return false;
-    else if (document.getElementById("pages").value == "") return false;
-    else return true;
+function setValidity() {
+    titleInput.setCustomValidity("");
+    authorInput.setCustomValidity("");
+    pagesInput.setCustomValidity("");
+
+    if (!titleInput.validity.valid) {
+        titleInput.setCustomValidity("Title name must be filled!");
+        return;
+    }
+
+    if (!authorInput.validity.valid) {
+        authorInput.setCustomValidity("Author name must be filled!");
+        return;
+    }
+
+    if (pagesInput.validity.rangeUnderflow) {
+        pagesInput.setCustomValidity("A book needs atleast 1 page!");
+        return
+    }
 }
 
 // --- Library Display ---
